@@ -108,4 +108,12 @@ export class ParagraphComponent implements OnInit {
     });
   }
 
+  delete(id: string) {
+    this.paragraphService.delete(id).subscribe(() => {
+      this.paragraphService.getAll().subscribe((v: Paragraph[]) => {
+        this.paragraph = v;
+      });
+    });
+  }
+
 }

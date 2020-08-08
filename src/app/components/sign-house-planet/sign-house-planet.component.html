@@ -5,10 +5,28 @@
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Signs </th>
             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <td mat-footer-cell *matFooterCellDef>
+                <mat-form-field class="example-form-field" *ngIf="showInputs1">
+                    <mat-label>name</mat-label>
+                    <input matInput type="text" [(ngModel)]="inputName">
+                </mat-form-field>
+            </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['name']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['name'];"></tr>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon aria-hidden="false" (click)="delete('sign', element.id)">delete</mat-icon>
+            </td>
+            <td mat-footer-cell *matFooterCellDef>
+                <mat-icon *ngIf="!showInputs1" aria-hidden="false" (click)="showInputs1=true">add</mat-icon>
+                <mat-icon *ngIf="showInputs1" aria-hidden="false" (click)="save('sign')">save</mat-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'action'];"></tr>
+        <tr mat-footer-row *matFooterRowDef="['name', 'action']"></tr>
     </table>
 </div>
 
@@ -18,10 +36,28 @@
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Houses </th>
             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <td mat-footer-cell *matFooterCellDef>
+                <mat-form-field class="example-form-field" *ngIf="showInputs2">
+                    <mat-label>name</mat-label>
+                    <input matInput type="text" [(ngModel)]="inputName">
+                </mat-form-field>
+            </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['name']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['name'];"></tr>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon aria-hidden="false" (click)="delete('house', element.id)">delete</mat-icon>
+            </td>
+            <td mat-footer-cell *matFooterCellDef>
+                <mat-icon *ngIf="!showInputs2" aria-hidden="false" (click)="showInputs2=true">add</mat-icon>
+                <mat-icon *ngIf="showInputs2" aria-hidden="false" (click)="save('house')">save</mat-icon>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['name', 'action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['name', 'action'];"></tr>
+        <tr mat-footer-row *matFooterRowDef="['name', 'action']"></tr>
     </table>
 </div>
 
@@ -31,13 +67,23 @@
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Planets </th>
             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            <td mat-footer-cell *matFooterCellDef></td>
+            <td mat-footer-cell *matFooterCellDef>
+                <mat-form-field class="example-form-field" *ngIf="showInputs3">
+                    <mat-label>name</mat-label>
+                    <input matInput type="text" [(ngModel)]="inputName">
+                </mat-form-field>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> 1 </th>
-            <td mat-cell *matCellDef="let element"> 1 </td>
-            <td mat-footer-cell *matFooterCellDef> bu </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon aria-hidden="false" (click)="delete('planet', element.id)">delete</mat-icon>
+            </td>
+            <td mat-footer-cell *matFooterCellDef>
+                <mat-icon *ngIf="!showInputs3" aria-hidden="false" (click)="showInputs3=true">add</mat-icon>
+                <mat-icon *ngIf="showInputs3" aria-hidden="false" (click)="save('planet')">save</mat-icon>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="['name', 'action']"></tr>

@@ -23,7 +23,9 @@
 
     <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element"></td>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon aria-hidden="false" (click)="delete(element.id)">delete</mat-icon>
+        </td>
         <td mat-footer-cell *matFooterCellDef>
             <mat-icon *ngIf="!showInputs" aria-hidden="false" (click)="showInputs=true">add</mat-icon>
             <mat-icon *ngIf="showInputs" aria-hidden="false" (click)="save()">save</mat-icon>
