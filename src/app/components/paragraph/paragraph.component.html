@@ -1,3 +1,19 @@
+<div class="tools">
+    <button>
+        <label>
+            <span class="mdi mdi-file-export"> </span>
+            <small>Import</small>
+            <input hidden type="file" (change)="onFileChange($event)" multiple="false">
+        </label>
+    </button>
+    <button (click)="refresh()">
+        <label>
+            <span class="mdi mdi-refresh"> </span>
+            <small>Refresh</small>
+        </label>
+    </button>
+</div>
+
 <table mat-table [dataSource]="paragraph" class="mat-elevation-z8" align="center">
 
     <ng-container *ngFor="let c of columns" [matColumnDef]="c">

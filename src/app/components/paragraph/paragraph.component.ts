@@ -5,6 +5,7 @@ import { Paragraph } from '../../models/paragraph';
 import { SignService } from '../../services/sign.service';
 import { HouseService } from '../../services/house.service';
 import { PlanetService } from '../../services/planet.service';
+import { ExcelService } from '../../services/excel.service';
 import { SHP } from '../../models/shp';
 
 @Component({
@@ -47,7 +48,8 @@ export class ParagraphComponent implements OnInit {
   constructor(private paragraphService: ParagraphService,
     private signService: SignService,
     private houseService: HouseService,
-    private planetService: PlanetService) {
+    private planetService: PlanetService,
+    private excelService: ExcelService) {
   }
 
   ngOnInit(): void {
@@ -113,6 +115,41 @@ export class ParagraphComponent implements OnInit {
       this.paragraphService.getAll().subscribe((v: Paragraph[]) => {
         this.paragraph = v;
       });
+    });
+  }
+
+  onFileChange(evt: any) {
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+
+      const bstr: string = e.target.result;
+      const data = <any[]>this.excelService.importFromFile(bstr);
+
+      const header = data.slice(0, 1);
+      const importedData = data.slice(1, -1);
+
+      if (header && header.length && importedData && importedData.length) {
+        for (let k = 0; k < importedData.length; k++) {
+          let request = {};
+          for (let i = 0; i < header[0].length; i++) {
+            if (header[0][i] && importedData[k][i]) {
+              request[header[0][i]] = importedData[k][i];
+            }
+          }
+          this.paragraphService.post(request).subscribe(() => {});
+        }
+      }
+    };
+    reader.readAsBinaryString(target.files[0]);
+
+  }
+
+  refresh() {
+    this.paragraphService.getAll().subscribe((v: Paragraph[]) => {
+      this.paragraph = v;
     });
   }
 
